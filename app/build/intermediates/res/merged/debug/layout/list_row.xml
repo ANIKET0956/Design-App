@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="5dip"
+    android:background="@drawable/gradient_bg">
+
+
+    <!--  ListRow Left sied Thumbnail image -->
+
+	<!-- Title Of Song-->
+
+	<!-- Artist Name -->
+
+	<!-- Rightend Duration -->
+
+	<!-- Rightend Arrow -->
+
+	<android.support.v7.widget.CardView
+		android:id="@+id/card"
+		android:layout_width="match_parent"
+		android:layout_height="100dp"
+		android:layout_margin="5dp"
+		android:elevation="50dp">
+
+		<RelativeLayout android:id="@+id/rl"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent">
+
+		<ImageView
+			android:id="@+id/image"
+			android:layout_width="70dp"
+			android:layout_height="match_parent"
+			android:src="@drawable/rihanna"
+			android:layout_marginLeft="10dp"/>
+
+
+
+			<!-- Title Of Song-->
+			<TextView
+				android:id="@+id/title"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_toRightOf="@+id/image"
+				android:layout_marginLeft="25dp"
+				android:layout_marginTop="20dp"
+				android:text="Rihanna Love the way lie"
+				android:textColor="#040404"
+				android:typeface="sans"
+				android:textSize="15dip"
+				android:textStyle="bold"/>
+
+
+			<!-- Artist Name -->
+			<TextView
+				android:id="@+id/artist"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:layout_below="@id/title"
+				android:textColor="#343434"
+				android:textSize="10dip"
+				android:layout_marginTop="5dip"
+				android:layout_marginLeft="25dp"
+				android:layout_toRightOf="@+id/image"
+				android:text="Just gona stand there and ..." />
+
+
+
+			<!-- Rightend Duration -->
+			<TextView
+				android:id="@+id/duration"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_alignParentRight="true"
+				android:layout_alignTop="@id/title"
+				android:gravity="right"
+				android:text="5:45"
+				android:layout_marginRight="5dip"
+				android:textSize="10dip"
+				android:textColor="#10bcc9"
+				android:textStyle="bold"/>
+
+
+			<!-- Rightend Arrow -->
+			<ImageView android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:src="@drawable/dots"
+				android:layout_marginRight="5dp"
+				android:layout_alignParentRight="true"
+				android:layout_centerVertical="true"
+				android:layout_alignLeft="@+id/duration"
+				android:clickable="true"
+				android:id="@+id/three_dot"/>
+
+		</RelativeLayout>
+
+	</android.support.v7.widget.CardView>
+
+</RelativeLayout>
+
