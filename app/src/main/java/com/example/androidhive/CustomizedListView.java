@@ -34,8 +34,10 @@ public class CustomizedListView extends Activity {
     static final String KEY_TITLE = "title";
     static final String KEY_ARTIST = "artist";
     static final String KEY_DURATION = "duration";
-    static final String KEY_THUMB_URL = "thumb_url";
-    static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
+    public static final String KEY_THUMB_URL = "thumb_url";
+
+    public static final String KEY_OBJ_URL = "url_file";
+    public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
 
     static ListView list;
     LazyAdapter adapter;

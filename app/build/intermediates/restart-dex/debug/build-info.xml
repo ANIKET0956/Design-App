@@ -5,7 +5,7 @@
     density="xxhdpi"
     format="8"
     plugin-version="2.2.3"
-    timestamp="193993837191877"
+    timestamp="95034287697822"
     token="4438748700145770704"
     verifier="COLD_SWAP_REQUESTED" >
 
@@ -23,14 +23,28 @@
         duration="0" />
 
     <build
-        timestamp="193600698982200"
+        timestamp="89188517906529"
         verifier="FULL_BUILD_REQUESTED" >
         <artifact
             location="C:\Users\Aniket Khandelwal\AndroidStudioProjects\CustomizedListViewNew\app\build\outputs\apk\app-debug.apk"
             type="MAIN" />
     </build>
     <build
-        timestamp="193993837191877"
+        timestamp="90138329880665"
+        verifier="COLD_SWAP_REQUESTED" >
+        <artifact
+            location="C:\Users\Aniket Khandelwal\AndroidStudioProjects\CustomizedListViewNew\app\build\intermediates\transforms\dex\debug\folders\1000\5\slice_5\classes.dex"
+            type="DEX" />
+    </build>
+    <build
+        timestamp="91601607113504"
+        verifier="COLD_SWAP_REQUESTED" >
+        <artifact
+            location="C:\Users\Aniket Khandelwal\AndroidStudioProjects\CustomizedListViewNew\app\build\intermediates\transforms\dex\debug\folders\1000\5\slice_6\classes.dex"
+            type="DEX" />
+    </build>
+    <build
+        timestamp="95034287697822"
         verifier="COLD_SWAP_REQUESTED" />
 
 </instant-run>

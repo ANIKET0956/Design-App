@@ -2,13 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/favourite_list"
+        android:id="@+id/all_list"
         android:orderInCategory="100"
         android:title="All"
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/action_mark_all_read"
+        android:id="@+id/favouite_list"
         android:orderInCategory="101"
         android:title="Favourite"
         app:showAsAction="never" />

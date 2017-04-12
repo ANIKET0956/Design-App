@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
+
 
 public class LazyAdapter extends BaseAdapter {
     
@@ -52,32 +56,48 @@ public class LazyAdapter extends BaseAdapter {
         ImageView thumb_image=(ImageView)vi.findViewById(R.id.image); // thumb image
         final ImageView dot_image = (ImageView)vi.findViewById(R.id.three_dot);
 
-        HashMap<String, String> song = new HashMap<String, String>();
-        song = data.get(position);
+        final HashMap<String, String> song = data.get(position);
+
         
         // Setting all values in listview
         title.setText(song.get(CustomizedListView.KEY_TITLE));
-        artist.setText(song.get(CustomizedListView.KEY_ARTIST));
-        duration.setText(song.get(CustomizedListView.KEY_DURATION));
-        imageLoader.DisplayImage(song.get(CustomizedListView.KEY_THUMB_URL), thumb_image);
+        artist.setText("Unknown");
+        duration.setText("5.00");
+
+        thumb_image.setImageResource(R.drawable.par1);
+        if(song.get(ArticleLoaderTask.KEY_TYPE).equals("mp3"))thumb_image.setImageResource(R.drawable.par1);
+        else if(song.get(ArticleLoaderTask.KEY_TYPE).equals("mp4"))thumb_image.setImageResource(R.drawable.par2);
 
         dot_image.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 //Creating the instance of PopupMenu
-                PopupMenu popup = new PopupMenu(activity, dot_image);
+                android.widget.PopupMenu popup = new android.widget.PopupMenu(activity, dot_image);
                 //Inflating the Popup using xml file
                 popup.getMenuInflater().inflate(R.menu.popup_menu, popup.getMenu());
 
                 //registering popup with OnMenuItemClickListener
-                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                popup.setOnMenuItemClickListener(new android.widget.PopupMenu.OnMenuItemClickListener() {
                     public boolean onMenuItemClick(MenuItem item) {
-                        Toast.makeText(activity,"You Clicked : " + item.getTitle(),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(activity,"Marked Favourite",Toast.LENGTH_SHORT).show();
+                        switch (item.getItemId()){
+                            case R.id.one:
+                                if(song.get(ArticleLoaderTask.KEY_TYPE).equals("mp3")) {
+                                    Log.d("tag with purpose",song.get(ArticleLoaderTask.KEY_ID));
+                                    SlidingMenu.Jparse.addFavorite(SlidingMenu.user_id, song.get(ArticleLoaderTask.KEY_ID));
+                                    ArticleLoaderTask.AudioFavSongsList.add(song);
+                                }
+                                else if(song.get(ArticleLoaderTask.KEY_TYPE).equals("mp4")) {
+                                    SlidingMenu.Jparse.addFavorite(SlidingMenu.user_id,song.get(ArticleLoaderTask.KEY_ID));
+                                    ArticleLoaderTask.VideoFavSongsList.add(song);
+                                }
+                                break;
+                            default:
+                                break;
+                        }
                         return true;
                     }
                 });
-
                 popup.show();//showing popup menu
             }
         });

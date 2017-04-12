@@ -49,4 +49,23 @@
     <string name="favourite">Favourite</string>
     <string name="mark">Mark</string>
     <string name="privacy_policy">Privacy Policy</string>
+    <string name="title_activity_video_player">VideoPlayer</string>
+
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Password</string>
+    <string name="hint_name">Fullname</string>
+    <string name="btn_login">LOGIN</string>
+    <string name="btn_register">REGISTER</string>
+    <string name="btn_link_to_register">Not a member? Sign up now.</string>
+    <string name="btn_link_to_login">Already registred! Login Me.</string>
+    <string name="welcome">Welcome</string>
+    <string name="btn_logout">LOGOUT</string>
+    <string name="btn_upload">UPLOAD</string>
+    <string name="btn_download">DOWNLOAD</string>
+    <string name="btn_fav">Favorites</string>
+    <string name="btn_play">Playlists</string>
+    <string name="btn_search">Search</string>
+    <string name="name">Fullname</string>
+    <string name="title_activity_login">LoginActivity</string>
+
 </resources>

@@ -239,14 +239,12 @@ public class Drawer extends Activity {
             View vi = inflater.inflate(R.layout.fragment_planet, null);
             list = (ListView) vi.findViewById(R.id.list);
 
-            Log.d("size of song",Integer.toString(ArticleLoaderTask.songsList.size()));
-
-            if(ArticleLoaderTask.songsList.size()==0) {
+            if(ArticleLoaderTask.AudioSongsList.size()==0) {
                 new ArticleLoaderTask(mActivity).execute();
             }
 
 
-            ladapter = new LazyAdapter(mActivity,ArticleLoaderTask.songsList);
+            ladapter = new LazyAdapter(mActivity,ArticleLoaderTask.AudioSongsList);
             list.setAdapter(ladapter);
 
 
@@ -259,7 +257,7 @@ public class Drawer extends Activity {
                     TextView Text = (TextView) view.findViewById(R.id.title);
                     String message = "http://www.hrupin.com/wp-content/uploads/mp3/testsong_20_sec.mp3";
                     intent.putExtra(EXTRA_MESSAGE, message);
-                    intent.putExtra("url_song", ArticleLoaderTask.songsList.get(position).get(CustomizedListView.KEY_THUMB_URL).toString());
+                    intent.putExtra("url_song", ArticleLoaderTask.AudioSongsList.get(position).get(CustomizedListView.KEY_THUMB_URL).toString());
                     startActivity(intent);
 
                 }

@@ -24,14 +24,37 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.example.androidhive.app.AppConfig;
+import com.example.androidhive.app.AppController;
+import com.example.androidhive.fragments.AudioFavourite;
+import com.example.androidhive.fragments.AudioFragment;
+import com.example.androidhive.fragments.HomeFragment;
+import com.example.androidhive.fragments.VideoFavourite;
+import com.example.androidhive.fragments.VideoFragment;
+import com.example.androidhive.helper.SQLiteHandler;
+import com.example.androidhive.helper.SessionManager;
 
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 public class SlidingMenu extends AppCompatActivity {
@@ -45,16 +68,11 @@ public class SlidingMenu extends AppCompatActivity {
     private Toolbar toolbar;
     private FloatingActionButton fab;
 
-
     static Context mContext;
     static Activity mActivity;
 
-
-    static ListView list;
-
-    static LazyAdapter ladapter;
-
-
+    public static ListView Audiolist,AudioFavlist,Videolist,VideoFavlist;
+    public static LazyAdapter Audioadpater,AudioFavadapter,Videoadapter,VideoFavadapter;
 
     public static int navItemIndex = 0;
 
@@ -65,7 +83,9 @@ public class SlidingMenu extends AppCompatActivity {
     private static final String TAG_NOTIFICATIONS = "notifications";
     private static final String TAG_SETTINGS = "settings";
     public static String CURRENT_TAG = TAG_HOME;
+    static final String KEY_TYPE = "type";
 
+    public static JSONArray favs;
     // toolbar titles respected to selected nav menu item
     private String[] activityTitles;
 
@@ -76,6 +96,11 @@ public class SlidingMenu extends AppCompatActivity {
     private static final String urlNavHeaderBg = "http://api.androidhive.info/images/nav-menu-header-bg.jpg";
     private static final String urlProfileImg = "https://lh3.googleusercontent.com/eCtE_G34M9ygdkmOpYvCag1vBARCmZwnVS6rS5t4JLzJ6QgQSBquM0nuTsCpLhYbKljoyS-txg";
 
+
+    private SQLiteHandler db;
+    private SessionManager session;
+    public static String user_id;
+    public static JSONparse Jparse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +113,8 @@ public class SlidingMenu extends AppCompatActivity {
         mActivity = this;
         mContext = getBaseContext();
 
+
+        Jparse = new JSONparse(mActivity);
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -100,6 +127,13 @@ public class SlidingMenu extends AppCompatActivity {
         imgProfile = (ImageView) navHeader.findViewById(R.id.img_profile);
 
         activityTitles = getResources().getStringArray(R.array.nav_item_activity_titles);
+
+
+        db = new SQLiteHandler(getApplicationContext());
+        session = new SessionManager(getApplicationContext());
+        if (!session.isLoggedIn()) {
+            logoutUser();
+        }
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,6 +149,9 @@ public class SlidingMenu extends AppCompatActivity {
         // initializing navigation menu
         setUpNavigationView();
 
+        HashMap<String, String> user = db.getUserDetails();
+        user_id = user.get("dbid");
+
         if (savedInstanceState == null) {
             navItemIndex = 0;
             CURRENT_TAG = TAG_HOME;
@@ -128,6 +165,7 @@ public class SlidingMenu extends AppCompatActivity {
      * like background image, profile image
      * name, website, notifications action view (dot)
      */
+
     private void loadNavHeader() {
         // name, website
         txtName.setText("Aniket Khandelwal");
@@ -190,7 +228,6 @@ public class SlidingMenu extends AppCompatActivity {
                 // update the main content by replacing fragments
 
                 Fragment fragment = getHomeFragment();
-
                 FragmentManager fragmentManager = getFragmentManager();
                 fragmentManager.beginTransaction().replace(R.id.frame, fragment).commit();
             }
@@ -223,10 +260,10 @@ public class SlidingMenu extends AppCompatActivity {
                 fragment.setArguments(args);
                 break;
             case 1:
-                fragment =  new PlanetFragment();
+                fragment =  new AudioFragment();
                 break;
             case 2:
-                fragment =  new PlanetFragment();
+                fragment =  new VideoFragment();
                 break;
             case 3:
                 fragment =  new HomeFragment();
@@ -239,7 +276,9 @@ public class SlidingMenu extends AppCompatActivity {
                 fragment.setArguments(args);
                 break;
             default:
-                fragment = new PlanetFragment();
+                fragment =  new HomeFragment();
+                args.putInt(HomeFragment.ARG_PLANET_NUMBER, navItemIndex);
+                fragment.setArguments(args);
                 break;
         }
         return  fragment;
@@ -318,83 +357,6 @@ public class SlidingMenu extends AppCompatActivity {
 
 
 
-
-    public static class PlanetFragment extends Fragment {
-        public static final String ARG_PLANET_NUMBER = "planet_number";
-
-        public PlanetFragment() {
-            // Empty constructor required for fragment subclasses
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-
-            View vi = inflater.inflate(R.layout.fragment_planet, null);
-            list = (ListView) vi.findViewById(R.id.list);
-
-            if (ArticleLoaderTask.songsList.size() == 0) {
-                new ArticleLoaderTask(mActivity).execute();
-            }
-
-
-            ladapter = new LazyAdapter(mActivity, ArticleLoaderTask.songsList);
-            list.setAdapter(ladapter);
-
-
-            list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view,
-                                        int position, long id) {
-                    Intent intent = new Intent(mContext, StreamingMp3Player.class);
-                    TextView Text = (TextView) view.findViewById(R.id.title);
-                    String message = "http://www.hrupin.com/wp-content/uploads/mp3/testsong_20_sec.mp3";
-                    intent.putExtra(CustomizedListView.EXTRA_MESSAGE, message);
-                    intent.putExtra("url_song", ArticleLoaderTask.songsList.get(position).get(CustomizedListView.KEY_THUMB_URL).toString());
-                    startActivity(intent);
-
-                }
-            });
-
-            return  vi;
-        }
-    }
-
-
-
-    public static class HomeFragment extends  Fragment {
-
-        public static final String ARG_PLANET_NUMBER = "planet_number";
-
-        public HomeFragment() {
-
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView;
-            int number = getArguments().getInt(ARG_PLANET_NUMBER);
-            Log.d("number print ",Integer.toString(number));
-            switch (number){
-                case 0:
-                    rootView = inflater.inflate(R.layout.fragment_home,container,false);
-                    break;
-                case 3:
-                    rootView = inflater.inflate(R.layout.fragment_notifications,container,false);
-                    break;
-                case 4:
-                    rootView =  inflater.inflate(R.layout.fragment_settings,container,false);
-                    break;
-                default:
-                    rootView =  inflater.inflate(R.layout.fragment_home,container,false);
-                    break;
-            }
-            return rootView;
-        }
-
-    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -426,13 +388,39 @@ public class SlidingMenu extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_logout) {
             Toast.makeText(getApplicationContext(), "Logout user!", Toast.LENGTH_LONG).show();
+            logoutUser();
             return true;
         }
 
         // user is in notifications fragment
         // and selected 'Mark all as Read'
-        if (id == R.id.action_mark_all_read) {
-            Toast.makeText(getApplicationContext(), "All notifications marked as read!", Toast.LENGTH_LONG).show();
+        if (id == R.id.favouite_list) {
+            Fragment fragment = null;
+            switch (navItemIndex) {
+                case 1:
+                    fragment = new AudioFavourite();
+                    break;
+                case 2 :
+                    fragment =  new VideoFavourite();
+                    break;
+            }
+            FragmentManager fragmentManager = getFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.frame, fragment).commit();
+
+        }
+
+        if( id == R.id.all_list)
+        {   Fragment fragment = null;
+            switch (navItemIndex){
+                case 1:
+                    fragment = new AudioFragment();
+                    break;
+                case 2 :
+                    fragment = new VideoFragment();
+                    break;
+            }
+            FragmentManager fragmentManager = getFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.frame, fragment).commit();
         }
 
         // user is in notifications fragment
@@ -456,6 +444,15 @@ public class SlidingMenu extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void logoutUser()
+    {
+        session.setLogin(false);
+        db.deleteUsers();
+
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
     }
 
 

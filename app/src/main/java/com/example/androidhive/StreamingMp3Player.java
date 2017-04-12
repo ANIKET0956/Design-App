@@ -27,6 +27,10 @@ import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.example.androidhive.app.AppConfig;
+
+import java.net.URLEncoder;
+
 public class StreamingMp3Player extends Activity implements OnClickListener, OnTouchListener, OnCompletionListener, OnBufferingUpdateListener {
 
     private MediaPlayer mediaPlayer;
@@ -38,22 +42,25 @@ public class StreamingMp3Player extends Activity implements OnClickListener, OnT
     public TextView editTextSongURL;
 
     private final Handler handler = new Handler();
+    private String url_object;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.song_page);
-        initView();
 
         ImageLoader imageLoader;
         Intent intent = getIntent();
-        String message = intent.getStringExtra(CustomizedListView.EXTRA_MESSAGE);
+        String message = intent.getStringExtra("Title");
         TextView Text = (TextView) findViewById(R.id.songTitle);
         Text.setText(message);
         ImageView thumb_image=(ImageView)findViewById(R.id.imageView2);
-        String get_message = intent.getStringExtra("url_song");
-        imageLoader=new ImageLoader(getApplicationContext(),this);
-        imageLoader.DisplayImage(get_message, thumb_image);
+        thumb_image.setImageResource(R.drawable.par1);
+        String msg_url = intent.getStringExtra("Url Object");
+        url_object = AppConfig.DOWNLOAD_SOURCE_URL.concat(msg_url);
+        Log.d("show the url",url_object);
+        initView();
+
 
     }
 
@@ -64,9 +71,6 @@ public class StreamingMp3Player extends Activity implements OnClickListener, OnT
         seekBarProgress = (SeekBar) findViewById(R.id.songProgressBar);
         seekBarProgress.setMax(99); // It means 100% .0-99
         seekBarProgress.setOnTouchListener(this);
-        editTextSongURL = (TextView) findViewById(R.id.songTitle);
-        // Get the url from database.
-        editTextSongURL.setText("http://www.hrupin.com/wp-content/uploads/mp3/testsong_20_sec.mp3");
 
         mediaPlayer = new MediaPlayer();
         mediaPlayer.setOnBufferingUpdateListener(this);
@@ -93,7 +97,9 @@ public class StreamingMp3Player extends Activity implements OnClickListener, OnT
         if (v.getId() == R.id.btnPlay) {
             /** ImageButton onClick event handler. Method which start/pause mediaplayer playing */
             try {
-                mediaPlayer.setDataSource(editTextSongURL.getText().toString()); // setup song from http://www.hrupin.com/wp-content/uploads/mp3/testsong_20_sec.mp3 URL to mediaplayer data source
+                url_object= url_object.replaceAll(" ", "%20");
+                Log.d("url set",url_object);
+                mediaPlayer.setDataSource(url_object); // setup song from http://www.hrupin.com/wp-content/uploads/mp3/testsong_20_sec.mp3 URL to mediaplayer data source
                 mediaPlayer.prepare(); // you must call this method after setup the datasource in setDataSource method. After calling prepare() the instance of MediaPlayer starts load data from URL to internal buffer.
             } catch (Exception e) {
                 e.printStackTrace();
