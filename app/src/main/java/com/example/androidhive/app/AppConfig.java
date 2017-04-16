@@ -5,21 +5,21 @@ package com.example.androidhive.app;
  */
 public class AppConfig {
     // Server user login url
-//    public static String URL_LOGIN = "http://192.168.0.102/android_login_api/login.php";
-    public static String URL_LOGIN = "http://10.250.214.22/cms/login.php";
+    public static String SERVER_URL = "http://10.251.217.131/cms/";
+    public static String URL_LOGIN = SERVER_URL + "login.php";
 
     // Server user register url
-    public static String URL_REGISTER = "http://10.250.214.22/cms/register.php";
-    public static String URL_GETFAV = "http://10.250.214.22/cms/getFav.php";
-    public static String URL_ADDFAV = "http://10.250.214.22/cms/addFav.php";
-    public static String URL_GETPLAY = "http://10.250.214.22/cms/getPlaylists.php";
-    public static String URL_ADDPLAY = "http://10.250.214.22/cms/addtoPlaylist.php";
+    public static String URL_REGISTER = SERVER_URL + "register.php";
+    public static String URL_GETFAV = SERVER_URL + "getFav.php";
+    public static String URL_ADDFAV = SERVER_URL + "addFav.php";
+    public static String URL_GETPLAY = SERVER_URL + "getPlaylists.php";
+    public static String URL_ADDPLAY = SERVER_URL + "addtoPlaylist.php";
 
-    public static String UPLOAD_URL = "http://10.250.214.22/cms/uploader/UploadToServer.php";
-    public static String ADD_OBJECT_URL = "http://10.250.214.22/cms/addObject.php";
-    public static String ADD_TAG_URL = "http://10.250.214.22/cms/addTag.php";
-    public static String SEARCH_URL = "http://10.250.214.22/cms/search.php";
-    public static String DOWNLOAD_SOURCE_URL = "http://10.250.214.22/cms/uploader/uploads/";
+    public static String UPLOAD_URL = SERVER_URL + "UploadToServer.php";
+    public static String ADD_OBJECT_URL = SERVER_URL + "addObject.php";
+    public static String ADD_TAG_URL = SERVER_URL + "addTag.php";
+    public static String SEARCH_URL = SERVER_URL + "search.php";
+    public static String DOWNLOAD_SOURCE_URL = SERVER_URL + "uploads/";
 
-    public  static String URL_GETOBJECT = "http://10.250.214.22/cms/getObjects.php";
+    public  static String URL_GETOBJECT = SERVER_URL + "getObjects.php";
 }

@@ -67,6 +67,7 @@ public class LazyAdapter extends BaseAdapter {
         thumb_image.setImageResource(R.drawable.par1);
         if(song.get(ArticleLoaderTask.KEY_TYPE).equals("mp3"))thumb_image.setImageResource(R.drawable.par1);
         else if(song.get(ArticleLoaderTask.KEY_TYPE).equals("mp4"))thumb_image.setImageResource(R.drawable.par2);
+        else if(song.get(ArticleLoaderTask.KEY_TYPE).equals("jpg") || song.get(ArticleLoaderTask.KEY_TYPE).equals("png"))thumb_image.setImageResource(R.drawable.par3);
 
         dot_image.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,6 +81,8 @@ public class LazyAdapter extends BaseAdapter {
                 popup.setOnMenuItemClickListener(new android.widget.PopupMenu.OnMenuItemClickListener() {
                     public boolean onMenuItemClick(MenuItem item) {
                         Toast.makeText(activity,"Marked Favourite",Toast.LENGTH_SHORT).show();
+                        Log.d("Marking favourite: ", song.toString());
+                        Log.d("favourite objid: ", song.get(ArticleLoaderTask.KEY_ID));
                         switch (item.getItemId()){
                             case R.id.one:
                                 if(song.get(ArticleLoaderTask.KEY_TYPE).equals("mp3")) {
@@ -90,6 +93,11 @@ public class LazyAdapter extends BaseAdapter {
                                 else if(song.get(ArticleLoaderTask.KEY_TYPE).equals("mp4")) {
                                     SlidingMenu.Jparse.addFavorite(SlidingMenu.user_id,song.get(ArticleLoaderTask.KEY_ID));
                                     ArticleLoaderTask.VideoFavSongsList.add(song);
+                                }
+                                else if(song.get(ArticleLoaderTask.KEY_TYPE).equals("jpg") || song.get(ArticleLoaderTask.KEY_TYPE).equals("png")) {
+                                    SlidingMenu.Jparse.addFavorite(SlidingMenu.user_id,song.get(ArticleLoaderTask.KEY_ID));
+                                    ArticleLoaderTask.ImageFavList.add(song);
+                                    System.out.println(ArticleLoaderTask.ImageFavList.toString());
                                 }
                                 break;
                             default:

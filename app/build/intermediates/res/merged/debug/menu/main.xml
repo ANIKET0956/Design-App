@@ -24,7 +24,18 @@
         <item android:id="@+id/action_websearch"
             android:icon="@drawable/action_search"
             android:title="@string/action_websearch"
-            app:showAsAction="ifRoom|withText"
-            />
+            app:showAsAction="ifRoom|withText"/>
+
+        <item
+            android:id="@+id/all_list"
+            android:orderInCategory="100"
+            android:title="All"
+            app:showAsAction="never" />
+
+        <item
+            android:id="@+id/favouite_list"
+            android:orderInCategory="101"
+            android:title="Favourite"
+            app:showAsAction="never" />
 
 </menu>

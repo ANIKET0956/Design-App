@@ -131,7 +131,7 @@ public class AudioFavourite extends Fragment {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("Error", "Registration Error: " + error.getMessage());
+                Log.e("Error AudioFavourite", "Registration Error: " + error.getMessage());
                 Toast.makeText(getActivity(),
                         error.getMessage(), Toast.LENGTH_LONG).show();
             }

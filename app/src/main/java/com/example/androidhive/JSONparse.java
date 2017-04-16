@@ -19,9 +19,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static com.example.androidhive.ArticleLoaderTask.AudioSongsList;
+import static com.example.androidhive.ArticleLoaderTask.ImageList;
 import static com.example.androidhive.ArticleLoaderTask.KEY_ID;
 import static com.example.androidhive.ArticleLoaderTask.KEY_OBJ_URL;
 import static com.example.androidhive.ArticleLoaderTask.KEY_TITLE;
+import static com.example.androidhive.ArticleLoaderTask.KEY_LABEL;
 import static com.example.androidhive.ArticleLoaderTask.KEY_TYPE;
 import static com.example.androidhive.ArticleLoaderTask.VideoSongsList;
 import static com.example.androidhive.SlidingMenu.Videoadapter;
@@ -43,8 +45,14 @@ public class JSONparse {
 
         String tag_string_req = "req_get_object";
 
-        if(index==0)ArticleLoaderTask.AudioSongsList.clear();
-        else if(index==1)ArticleLoaderTask.VideoSongsList.clear();
+        if(index==0) ArticleLoaderTask.ImageList.clear();
+        else if(index==1)ArticleLoaderTask.AudioSongsList.clear();
+        else if(index==2)ArticleLoaderTask.VideoSongsList.clear();
+        else if(index==3){
+            ArticleLoaderTask.ImageList.clear();
+            ArticleLoaderTask.AudioSongsList.clear();
+            ArticleLoaderTask.VideoSongsList.clear();
+        }
 
         final ArrayList<HashMap<String, String>> total_objects = new ArrayList<HashMap<String, String>>();
 
@@ -71,6 +79,7 @@ public class JSONparse {
                                 map.put(KEY_ID,Integer.toString(f.getInt("id")));
                                 map.put(KEY_TYPE,f.getString("type"));
                                 map.put(KEY_OBJ_URL,f.getString("uri"));
+                                map.put(KEY_LABEL,f.getString("label"));
                                 map.put(KEY_TITLE,f.getString("uri").replaceFirst("[.][^.]+$", ""));
                                 total_objects.add(map);
                             }
@@ -80,6 +89,9 @@ public class JSONparse {
                         }
                         for(int i=0;i<total_objects.size();i++)
                         {
+                            if(total_objects.get(i).get(KEY_TYPE).equals("jpg") || total_objects.get(i).get(KEY_TYPE).equals("png")){
+                                ImageList.add(total_objects.get(i));
+                            }
                             if(total_objects.get(i).get(KEY_TYPE).equals("mp3")){
                                 AudioSongsList.add(total_objects.get(i));
                             }
@@ -91,13 +103,24 @@ public class JSONparse {
                         switch(index)
                         {
                             case 0:
-                                SlidingMenu.Audioadpater = new LazyAdapter(mActivity, ArticleLoaderTask.AudioSongsList);
-                                SlidingMenu.Audiolist.setAdapter(SlidingMenu.Audioadpater);
+                                SlidingMenu.Imageadapter = new LazyAdapter(mActivity, ArticleLoaderTask.ImageList);
+                                SlidingMenu.Imagelist.setAdapter(SlidingMenu.Imageadapter);
                                 break;
                             case 1:
+                                SlidingMenu.Audioadapter = new LazyAdapter(mActivity, ArticleLoaderTask.AudioSongsList);
+                                SlidingMenu.Audiolist.setAdapter(SlidingMenu.Audioadapter);
+                                break;
+                            case 2:
+                                SlidingMenu.Videoadapter = new LazyAdapter(mActivity, ArticleLoaderTask.VideoSongsList);
+                                SlidingMenu.Videolist.setAdapter(SlidingMenu.Videoadapter);
+                                break;
+                            case 3:
+                                SlidingMenu.Imageadapter = new LazyAdapter(mActivity, ArticleLoaderTask.ImageList);
+                                SlidingMenu.Imagelist.setAdapter(SlidingMenu.Imageadapter);
+                                SlidingMenu.Audioadapter = new LazyAdapter(mActivity, ArticleLoaderTask.AudioSongsList);
+                                SlidingMenu.Audiolist.setAdapter(SlidingMenu.Audioadapter);
                                 Videoadapter = new LazyAdapter(mActivity, ArticleLoaderTask.VideoSongsList);
                                 Videolist.setAdapter(Videoadapter);
-                                break;
                         }
 
 

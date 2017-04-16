@@ -3,7 +3,6 @@ package com.example.androidhive;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,33 +13,21 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.example.androidhive.app.AppConfig;
-import com.example.androidhive.app.AppController;
 import com.example.androidhive.fragments.AudioFavourite;
 import com.example.androidhive.fragments.AudioFragment;
+import com.example.androidhive.fragments.HomeFavourite;
 import com.example.androidhive.fragments.HomeFragment;
+import com.example.androidhive.fragments.ImageFavourite;
+import com.example.androidhive.fragments.ImageFragment;
 import com.example.androidhive.fragments.VideoFavourite;
 import com.example.androidhive.fragments.VideoFragment;
 import com.example.androidhive.helper.SQLiteHandler;
@@ -48,13 +35,8 @@ import com.example.androidhive.helper.SessionManager;
 
 
 import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 
 public class SlidingMenu extends AppCompatActivity {
@@ -71,15 +53,16 @@ public class SlidingMenu extends AppCompatActivity {
     static Context mContext;
     static Activity mActivity;
 
-    public static ListView Audiolist,AudioFavlist,Videolist,VideoFavlist;
-    public static LazyAdapter Audioadpater,AudioFavadapter,Videoadapter,VideoFavadapter;
+    public static ListView Audiolist,AudioFavlist,Videolist,VideoFavlist, Imagelist, ImageFavlist;
+    public static LazyAdapter Audioadapter,AudioFavadapter,Videoadapter,VideoFavadapter, Imageadapter, ImageFavadapter;
 
     public static int navItemIndex = 0;
 
     // tags used to attach the fragments
     private static final String TAG_HOME = "home";
-    private static final String TAG_PHOTOS = "photos";
-    private static final String TAG_MOVIES = "movies";
+    private static final String TAG_IMAGE = "photos";
+    private static final String TAG_AUDIO = "photos";
+    private static final String TAG_VIDEO = "movies";
     private static final String TAG_NOTIFICATIONS = "notifications";
     private static final String TAG_SETTINGS = "settings";
     public static String CURRENT_TAG = TAG_HOME;
@@ -100,6 +83,7 @@ public class SlidingMenu extends AppCompatActivity {
     private SQLiteHandler db;
     private SessionManager session;
     public static String user_id;
+    public static String user_name;
     public static JSONparse Jparse;
 
     @Override
@@ -143,14 +127,15 @@ public class SlidingMenu extends AppCompatActivity {
             }
         });
 
+        HashMap<String, String> user = db.getUserDetails();
+        user_id = user.get("dbid");
+        user_name = user.get("username");
+
         // load nav menu header data
         loadNavHeader();
 
         // initializing navigation menu
         setUpNavigationView();
-
-        HashMap<String, String> user = db.getUserDetails();
-        user_id = user.get("dbid");
 
         if (savedInstanceState == null) {
             navItemIndex = 0;
@@ -168,7 +153,7 @@ public class SlidingMenu extends AppCompatActivity {
 
     private void loadNavHeader() {
         // name, website
-        txtName.setText("Aniket Khandelwal");
+        txtName.setText(user_name);
         txtWebsite.setText("Content Mangement System");
 
         // loading header background image
@@ -183,7 +168,7 @@ public class SlidingMenu extends AppCompatActivity {
 
         imgProfile.setImageResource(R.drawable.batman);
         // showing dot next to notifications label
-        navigationView.getMenu().getItem(3).setActionView(R.layout.menu_dot);
+        navigationView.getMenu().getItem(0).setActionView(R.layout.menu_dot);
     }
 
     private void setToolbarTitle() {
@@ -192,6 +177,10 @@ public class SlidingMenu extends AppCompatActivity {
 
     private void selectNavMenu() {
         navigationView.getMenu().getItem(navItemIndex).setChecked(true);
+        for(int i=0;i<6;i++) {
+            navigationView.getMenu().getItem(i).setActionView(null);
+        }
+        navigationView.getMenu().getItem(navItemIndex).setActionView(R.layout.menu_dot);
     }
 
     // show or hide the fab
@@ -260,17 +249,20 @@ public class SlidingMenu extends AppCompatActivity {
                 fragment.setArguments(args);
                 break;
             case 1:
-                fragment =  new AudioFragment();
+                fragment =  new ImageFragment();
                 break;
             case 2:
-                fragment =  new VideoFragment();
+                fragment =  new AudioFragment();
                 break;
             case 3:
+                fragment =  new VideoFragment();
+                break;
+            case 4:
                 fragment =  new HomeFragment();
                 args.putInt(HomeFragment.ARG_PLANET_NUMBER, navItemIndex);
                 fragment.setArguments(args);
                 break;
-            case 4:
+            case 5:
                 fragment =  new HomeFragment();
                 args.putInt(HomeFragment.ARG_PLANET_NUMBER, navItemIndex);
                 fragment.setArguments(args);
@@ -299,20 +291,24 @@ public class SlidingMenu extends AppCompatActivity {
                         navItemIndex = 0;
                         CURRENT_TAG = TAG_HOME;
                         break;
-                    case R.id.nav_photos:
+                    case R.id.nav_image:
                         navItemIndex = 1;
-                        CURRENT_TAG = TAG_PHOTOS;
+                        CURRENT_TAG = TAG_IMAGE;
                         break;
-                    case R.id.nav_movies:
+                    case R.id.nav_audio:
                         navItemIndex = 2;
-                        CURRENT_TAG = TAG_MOVIES;
+                        CURRENT_TAG = TAG_AUDIO;
+                        break;
+                    case R.id.nav_video:
+                        navItemIndex = 3;
+                        CURRENT_TAG = TAG_VIDEO;
                         break;
                     case R.id.nav_notifications:
-                        navItemIndex = 3;
+                        navItemIndex = 4;
                         CURRENT_TAG = TAG_NOTIFICATIONS;
                         break;
                     case R.id.nav_settings:
-                        navItemIndex = 4;
+                        navItemIndex = 5;
                         CURRENT_TAG = TAG_SETTINGS;
                         break;
                     default:
@@ -368,10 +364,10 @@ public class SlidingMenu extends AppCompatActivity {
         }
 
         // when fragment is notifications, load the menu created for notifications
-        if (navItemIndex == 3) {
+        if (navItemIndex == 4) {
             getMenuInflater().inflate(R.menu.notifications, menu);
         }
-        else if(navItemIndex < 3){
+        else if(navItemIndex < 4){
             getMenuInflater().inflate(R.menu.favourite, menu);
         }
 
@@ -397,10 +393,16 @@ public class SlidingMenu extends AppCompatActivity {
         if (id == R.id.favouite_list) {
             Fragment fragment = null;
             switch (navItemIndex) {
+                case 0:
+                    fragment = new HomeFavourite();
+                    break;
                 case 1:
+                    fragment = new ImageFavourite();
+                    break;
+                case 2:
                     fragment = new AudioFavourite();
                     break;
-                case 2 :
+                case 3 :
                     fragment =  new VideoFavourite();
                     break;
             }
@@ -412,10 +414,19 @@ public class SlidingMenu extends AppCompatActivity {
         if( id == R.id.all_list)
         {   Fragment fragment = null;
             switch (navItemIndex){
+                case 0:
+                    Bundle args = new Bundle();
+                    fragment = new HomeFragment();
+                    args.putInt(HomeFragment.ARG_PLANET_NUMBER, navItemIndex);
+                    fragment.setArguments(args);
+                    break;
                 case 1:
+                    fragment = new ImageFragment();
+                    break;
+                case 2:
                     fragment = new AudioFragment();
                     break;
-                case 2 :
+                case 3:
                     fragment = new VideoFragment();
                     break;
             }

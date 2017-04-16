@@ -12,17 +12,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.androidhive.ArticleLoaderTask;
-import com.example.androidhive.CustomizedListView;
 import com.example.androidhive.LazyAdapter;
 import com.example.androidhive.R;
 import com.example.androidhive.SlidingMenu;
 import com.example.androidhive.StreamingMp3Player;
 
 import java.util.HashMap;
-import java.util.SimpleTimeZone;
-
-
-import com.example.androidhive.ArticleLoaderTask;
 
 /**
  * Created by Aniket on 4/7/2017.
@@ -44,10 +39,10 @@ public class AudioFragment extends Fragment {
         View vi = inflater.inflate(R.layout.fragment_planet, null);
         SlidingMenu.Audiolist = (ListView) vi.findViewById(R.id.list);
 
-        SlidingMenu.Jparse.get_all_objects(SlidingMenu.user_id,0);
+        SlidingMenu.Jparse.get_all_objects(SlidingMenu.user_id,1);
 
-        SlidingMenu.Audioadpater = new LazyAdapter(getActivity(), ArticleLoaderTask.AudioSongsList);
-        SlidingMenu.Audiolist.setAdapter(SlidingMenu.Audioadpater);
+        SlidingMenu.Audioadapter = new LazyAdapter(getActivity(), ArticleLoaderTask.AudioSongsList);
+        SlidingMenu.Audiolist.setAdapter(SlidingMenu.Audioadapter);
 
         Log.d("check in time",Integer.toString(SlidingMenu.Audiolist.getCount()));
 

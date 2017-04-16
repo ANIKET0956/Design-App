@@ -45,12 +45,17 @@ public class ArticleLoaderTask extends AsyncTask<Void, Void, ArrayList<HashMap<S
     static public final String KEY_SONG = "song"; // parent node
     static public final String KEY_ID = "id";
     static public final String KEY_TITLE = "title";
+    static public final String KEY_LABEL = "label";
     static public final String KEY_ARTIST = "artist";
     static public  final String KEY_DURATION = "duration";
     static public final String KEY_THUMB_URL = "thumb_url";
     static public  final String KEY_TYPE = "type";
 
     public static final String KEY_OBJ_URL = "url_file";
+
+    public static ArrayList<HashMap<String, String>> ImageList = new ArrayList<HashMap<String, String>>();
+
+    public static ArrayList<HashMap<String, String>> ImageFavList = new ArrayList<HashMap<String, String>>();
 
     public static ArrayList<HashMap<String, String>> AudioSongsList = new ArrayList<HashMap<String, String>>();
 
@@ -82,6 +87,7 @@ public class ArticleLoaderTask extends AsyncTask<Void, Void, ArrayList<HashMap<S
                 map.put(KEY_TYPE,f.getString("type"));
                 map.put(KEY_OBJ_URL,f.getString("uri"));
                 map.put(KEY_TITLE,f.getString("uri").replaceFirst("[.][^.]+$", ""));
+                map.put(KEY_LABEL,f.getString("label"));
                 total_objects.add(map);
             }
             catch (JSONException e) {

@@ -26,8 +26,9 @@
 
     <!-- Navigation Drawer menu labels -->
     <string name="nav_home">Home</string>
-    <string name="nav_photos">Audio</string>
-    <string name="nav_movies">Videos</string>
+    <string name="nav_image">Images</string>
+    <string name="nav_audio">Audio</string>
+    <string name="nav_video">Videos</string>
     <string name="nav_notifications">Notifications</string>
     <string name="nav_settings">Settings</string>
     <string name="nav_about_us">About Us</string>
@@ -35,6 +36,7 @@
     <!-- Toolbar titles when navigation menu item is selected -->
     <string-array name="nav_item_activity_titles">
         <item>Home</item>
+        <item>Images</item>
         <item>Audio</item>
         <item>Videos</item>
         <item>Notifications</item>
