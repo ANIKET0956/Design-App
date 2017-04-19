@@ -2,6 +2,10 @@ package com.example.androidhive;
 
 import android.app.Activity;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -15,8 +19,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 import static com.example.androidhive.ArticleLoaderTask.AudioSongsList;
 import static com.example.androidhive.ArticleLoaderTask.ImageList;
@@ -25,6 +31,7 @@ import static com.example.androidhive.ArticleLoaderTask.KEY_OBJ_URL;
 import static com.example.androidhive.ArticleLoaderTask.KEY_TITLE;
 import static com.example.androidhive.ArticleLoaderTask.KEY_LABEL;
 import static com.example.androidhive.ArticleLoaderTask.KEY_TYPE;
+import static com.example.androidhive.ArticleLoaderTask.TrendingList;
 import static com.example.androidhive.ArticleLoaderTask.VideoSongsList;
 import static com.example.androidhive.SlidingMenu.Videoadapter;
 import static com.example.androidhive.SlidingMenu.Videolist;
@@ -35,6 +42,7 @@ import static com.example.androidhive.SlidingMenu.Videolist;
 
 public class JSONparse {
 
+    public int FIXED_SIZE = 10;
     Activity mActivity;
     public JSONparse(Activity a)
     {
@@ -48,11 +56,7 @@ public class JSONparse {
         if(index==0) ArticleLoaderTask.ImageList.clear();
         else if(index==1)ArticleLoaderTask.AudioSongsList.clear();
         else if(index==2)ArticleLoaderTask.VideoSongsList.clear();
-        else if(index==3){
-            ArticleLoaderTask.ImageList.clear();
-            ArticleLoaderTask.AudioSongsList.clear();
-            ArticleLoaderTask.VideoSongsList.clear();
-        }
+        else if(index==3){ArticleLoaderTask.TotalList.clear();TrendingList.clear();}
 
         final ArrayList<HashMap<String, String>> total_objects = new ArrayList<HashMap<String, String>>();
 
@@ -98,6 +102,14 @@ public class JSONparse {
                             if(total_objects.get(i).get(KEY_TYPE).equals("mp4")){
                                 VideoSongsList.add(total_objects.get(i));
                             }
+                            ArticleLoaderTask.TotalList.add(total_objects.get(i));
+                        }
+
+                        long seed = System.nanoTime();
+                        Collections.shuffle(ArticleLoaderTask.TotalList, new Random(seed));
+
+                        for(int i=0;i<FIXED_SIZE;i++) {
+                            TrendingList.add(ArticleLoaderTask.TotalList.get(i));
                         }
 
                         switch(index)
@@ -115,12 +127,10 @@ public class JSONparse {
                                 SlidingMenu.Videolist.setAdapter(SlidingMenu.Videoadapter);
                                 break;
                             case 3:
-                                SlidingMenu.Imageadapter = new LazyAdapter(mActivity, ArticleLoaderTask.ImageList);
-                                SlidingMenu.Imagelist.setAdapter(SlidingMenu.Imageadapter);
-                                SlidingMenu.Audioadapter = new LazyAdapter(mActivity, ArticleLoaderTask.AudioSongsList);
-                                SlidingMenu.Audiolist.setAdapter(SlidingMenu.Audioadapter);
-                                Videoadapter = new LazyAdapter(mActivity, ArticleLoaderTask.VideoSongsList);
-                                Videolist.setAdapter(Videoadapter);
+                                Log.d("size totallist",Integer.toString(ArticleLoaderTask.TrendingList.size()));
+                                SlidingMenu.Totaladapter = new LazyAdapter(mActivity, ArticleLoaderTask.TrendingList);
+                                SlidingMenu.Totallist.setAdapter(SlidingMenu.Totaladapter);
+                                break;
                         }
 
 
@@ -211,6 +221,28 @@ public class JSONparse {
 
         // Adding request to request queue
         AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+    }
+
+    public static class ListUtils {
+        public static void setDynamicHeight(ListView mListView) {
+            ListAdapter mListAdapter = mListView.getAdapter();
+            if (mListAdapter == null) {
+                // when adapter is null
+                return;
+            }
+            int height = 0;
+            int desiredWidth = View.MeasureSpec.makeMeasureSpec(mListView.getWidth(), View.MeasureSpec.UNSPECIFIED);
+            for (int i = 0; i < mListAdapter.getCount(); i++) {
+                View listItem = mListAdapter.getView(i, null, mListView);
+                listItem.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
+                height += listItem.getMeasuredHeight();
+            }
+            Log.d("count element",Integer.toString(mListAdapter.getCount()));
+            ViewGroup.LayoutParams params = mListView.getLayoutParams();
+            params.height = height + (mListView.getDividerHeight() * (mListAdapter.getCount() - 1));
+            mListView.setLayoutParams(params);
+            mListView.requestLayout();
+        }
     }
 
 

@@ -48,11 +48,6 @@ public class ImageFragment extends Fragment {
 
         SlidingMenu.Jparse.get_all_objects(SlidingMenu.user_id,0);
 
-        SlidingMenu.Imageadapter = new LazyAdapter(getActivity(), ArticleLoaderTask.ImageList);
-        SlidingMenu.Imagelist.setAdapter(SlidingMenu.Imageadapter);
-
-        Log.d("check in time",Integer.toString(SlidingMenu.Imagelist.getCount()));
-
         SlidingMenu.Imagelist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override

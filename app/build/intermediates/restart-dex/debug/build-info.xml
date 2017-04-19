@@ -5,46 +5,33 @@
     density="xxhdpi"
     format="8"
     plugin-version="2.2.3"
-    timestamp="95034287697822"
+    timestamp="750968481491"
     token="4438748700145770704"
-    verifier="COLD_SWAP_REQUESTED" >
+    verifier="FULL_BUILD_REQUESTED" >
 
     <task
         name="javac"
-        duration="0" />
+        duration="4893" />
     <task
         name="instant-run-dex"
         duration="0" />
     <task
         name="instant-run-transform"
-        duration="0" />
+        duration="234" />
     <task
         name="verifier"
-        duration="0" />
+        duration="15" />
+
+    <artifact
+        location="C:\Users\Aniket Khandelwal\AndroidStudioProjects\CustomizedListViewNew\app\build\outputs\apk\app-debug.apk"
+        type="MAIN" />
 
     <build
-        timestamp="89188517906529"
+        timestamp="105963363280256"
         verifier="FULL_BUILD_REQUESTED" >
         <artifact
             location="C:\Users\Aniket Khandelwal\AndroidStudioProjects\CustomizedListViewNew\app\build\outputs\apk\app-debug.apk"
             type="MAIN" />
     </build>
-    <build
-        timestamp="90138329880665"
-        verifier="COLD_SWAP_REQUESTED" >
-        <artifact
-            location="C:\Users\Aniket Khandelwal\AndroidStudioProjects\CustomizedListViewNew\app\build\intermediates\transforms\dex\debug\folders\1000\5\slice_5\classes.dex"
-            type="DEX" />
-    </build>
-    <build
-        timestamp="91601607113504"
-        verifier="COLD_SWAP_REQUESTED" >
-        <artifact
-            location="C:\Users\Aniket Khandelwal\AndroidStudioProjects\CustomizedListViewNew\app\build\intermediates\transforms\dex\debug\folders\1000\5\slice_6\classes.dex"
-            type="DEX" />
-    </build>
-    <build
-        timestamp="95034287697822"
-        verifier="COLD_SWAP_REQUESTED" />
 
 </instant-run>

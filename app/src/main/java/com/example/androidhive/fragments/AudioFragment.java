@@ -41,11 +41,6 @@ public class AudioFragment extends Fragment {
 
         SlidingMenu.Jparse.get_all_objects(SlidingMenu.user_id,1);
 
-        SlidingMenu.Audioadapter = new LazyAdapter(getActivity(), ArticleLoaderTask.AudioSongsList);
-        SlidingMenu.Audiolist.setAdapter(SlidingMenu.Audioadapter);
-
-        Log.d("check in time",Integer.toString(SlidingMenu.Audiolist.getCount()));
-
         SlidingMenu.Audiolist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override

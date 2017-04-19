@@ -65,6 +65,10 @@ public class ArticleLoaderTask extends AsyncTask<Void, Void, ArrayList<HashMap<S
 
     public static ArrayList<HashMap<String, String>> VideoFavSongsList = new ArrayList<HashMap<String, String>>();
 
+    public static ArrayList<HashMap<String, String>> TotalList = new ArrayList<HashMap<String, String>>();
+
+    public static ArrayList<HashMap<String, String>> TrendingList = new ArrayList<HashMap<String, String>>();
+
 
     public ArticleLoaderTask(Activity a) {
 

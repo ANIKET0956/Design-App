@@ -61,7 +61,6 @@ public class StreamingMp3Player extends Activity implements OnClickListener, OnT
         Log.d("show the url",url_object);
         initView();
 
-
     }
 
     private void initView() {

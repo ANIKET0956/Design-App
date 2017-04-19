@@ -22,8 +22,10 @@
     <application
         name="com.example.androidhive.app.AppController"
         android:name="com.android.tools.fd.runtime.BootstrapApplication"
+        android:hardwareAccelerated="false"
         android:icon="@drawable/icon"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:theme="@android:style/Theme.Holo.Light" >
         <activity
             android:name="com.example.androidhive.CustomizedListView"
@@ -69,6 +71,11 @@
         <activity
             android:name="com.example.androidhive.LoginActivity"
             android:label="@string/title_activity_login" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.example.androidhive.ViewImage" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
             </intent-filter>

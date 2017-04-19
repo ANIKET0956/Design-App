@@ -9,27 +9,25 @@
         android:layout_gravity="center"
         android:alpha="0.3"
         android:src="@drawable/ic_home_black_24dp" />
-
     <ListView
         android:id="@+id/imagelist"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:divider="#b5b5b5"
         android:dividerHeight="1dp"
         android:listSelector="@drawable/list_selector" />
     <ListView
         android:id="@+id/audiolist"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:divider="#b5b5b5"
         android:dividerHeight="1dp"
         android:listSelector="@drawable/list_selector" />
     <ListView
         android:id="@+id/videolist"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:divider="#b5b5b5"
         android:dividerHeight="1dp"
         android:listSelector="@drawable/list_selector" />
-
 </FrameLayout>

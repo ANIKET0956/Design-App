@@ -39,7 +39,8 @@ import org.json.JSONArray;
 import java.util.HashMap;
 
 
-public class SlidingMenu extends AppCompatActivity {
+public class
+SlidingMenu extends AppCompatActivity {
 
 
     private NavigationView navigationView;
@@ -53,8 +54,8 @@ public class SlidingMenu extends AppCompatActivity {
     static Context mContext;
     static Activity mActivity;
 
-    public static ListView Audiolist,AudioFavlist,Videolist,VideoFavlist, Imagelist, ImageFavlist;
-    public static LazyAdapter Audioadapter,AudioFavadapter,Videoadapter,VideoFavadapter, Imageadapter, ImageFavadapter;
+    public static ListView Audiolist,AudioFavlist,Videolist,VideoFavlist, Imagelist, ImageFavlist,Totallist;
+    public static LazyAdapter Audioadapter,AudioFavadapter,Videoadapter,VideoFavadapter, Imageadapter, ImageFavadapter,Totaladapter;
 
     public static int navItemIndex = 0;
 

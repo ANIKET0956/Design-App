@@ -3,9 +3,10 @@ package com.example.androidhive.app;
 /**
  * Created by Prakhar Gupta on 3/28/2017.
  */
+
 public class AppConfig {
     // Server user login url
-    public static String SERVER_URL = "http://10.251.217.131/cms/";
+    public static String SERVER_URL = "http://10.194.23.8/cms/";
     public static String URL_LOGIN = SERVER_URL + "login.php";
 
     // Server user register url
@@ -19,7 +20,7 @@ public class AppConfig {
     public static String ADD_OBJECT_URL = SERVER_URL + "addObject.php";
     public static String ADD_TAG_URL = SERVER_URL + "addTag.php";
     public static String SEARCH_URL = SERVER_URL + "search.php";
-    public static String DOWNLOAD_SOURCE_URL = SERVER_URL + "uploads/";
+    public static String DOWNLOAD_SOURCE_URL = SERVER_URL + "uploader/uploads/";
 
     public  static String URL_GETOBJECT = SERVER_URL + "getObjects.php";
 }

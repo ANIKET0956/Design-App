@@ -57,7 +57,7 @@
 			<!-- Artist Name -->
 			<TextView
 				android:id="@+id/artist"
-				android:layout_width="fill_parent"
+				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_below="@id/title"
 				android:textColor="#343434"
@@ -67,9 +67,40 @@
 				android:layout_toRightOf="@+id/image"
 				android:text="Just gona stand there and ..." />
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/title"
+                android:layout_toRightOf="@+id/artist"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal"
+                android:background="@android:color/holo_green_light">
 
+			<ImageView
+				android:id="@+id/image_hashtag"
+				android:layout_width="30dp"
+				android:layout_height="match_parent"
+				android:src="@drawable/hash_tag"
+				android:layout_marginTop="2dp"
+                android:layout_marginBottom="2dp"
+                ></ImageView>
 
-			<!-- Rightend Duration -->
+            <TextView
+                android:id="@+id/tagname"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/artist"
+                android:textColor="#343434"
+                android:textSize="10dip"
+                android:layout_marginTop="2dp"
+                android:layout_marginRight="10dp"
+                android:text="Audio"
+                />
+
+            </LinearLayout>
+
+            <!-- Rightend Duration -->
 			<TextView
 				android:id="@+id/duration"
 				android:layout_width="wrap_content"

@@ -1,9 +1,5 @@
 [
     {
-        "merged": "D:\\study\\8th sem\\design_proj\\Design-App\\app\\build\\intermediates\\res\\merged\\debug\\layout-v16\\notification_template_custom_big.xml",
-        "source": "D:\\study\\8th sem\\design_proj\\Design-App\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.1.1\\res\\layout-v16\\notification_template_custom_big.xml"
-    },
-    {
         "merged": "C:\\Users\\Aniket Khandelwal\\AndroidStudioProjects\\CustomizedListViewNew\\app\\build\\intermediates\\res\\merged\\debug\\layout-v16\\notification_template_custom_big.xml",
         "source": "C:\\Users\\Aniket Khandelwal\\AndroidStudioProjects\\CustomizedListViewNew\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.1.1\\res\\layout-v16\\notification_template_custom_big.xml"
     }

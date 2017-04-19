@@ -42,8 +42,8 @@ import static com.example.androidhive.app.AppConfig.SERVER_URL;
 public class ViewImage extends Activity {
     private long enqueue;
     private DownloadManager dm;
-    private String downloadUrl = SERVER_URL;
-    private String sourceUrl = SERVER_URL;
+    private String downloadUrl = DOWNLOAD_SOURCE_URL;
+    private String sourceUrl = DOWNLOAD_SOURCE_URL;
     private static ImageView iv;
     private static Bitmap bmp;
     private static Button bDownload;
@@ -60,7 +60,7 @@ public class ViewImage extends Activity {
         downloadUrl = downloadUrl + uri;
         iv = (ImageView) findViewById(R.id.imageView1);
         image_loader = new ImageLoader(getApplicationContext(),this);
-//        image_loader.DisplayImage(downloadUrl,iv);
+       // image_loader.DisplayImage(downloadUrl,iv);
         LoadImage(downloadUrl);
 
         bDownload = (Button) findViewById(R.id.button2);
@@ -72,21 +72,6 @@ public class ViewImage extends Activity {
             }
         });
 
-    }
-
-    @Override
-    public void onDestroy(){
-        super.onDestroy();
-        iv = null;
-        bmp = null;
-        bDownload = null;
-        receiver = null;
-        try {
-            unregisterReceiver(receiver);
-        }
-        catch (Exception e){
-            Log.e("onDestroy viewImage: ", e.toString());
-        }
     }
 
     public static void LoadImage(final String url) {
@@ -117,6 +102,7 @@ public class ViewImage extends Activity {
     }
 
     public void download(final String downloadUrl){
+        Log.d("clicked","button");
         dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
         Request request = new Request(
                 Uri.parse(downloadUrl));
@@ -151,6 +137,6 @@ public class ViewImage extends Activity {
 
         registerReceiver(receiver, new IntentFilter(
                 DownloadManager.ACTION_DOWNLOAD_COMPLETE));
-//        unregisterReceiver(receiver);
+        unregisterReceiver(receiver);
     }
 }

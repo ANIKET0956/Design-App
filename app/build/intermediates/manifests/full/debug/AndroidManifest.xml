@@ -21,8 +21,10 @@
 
     <application
         android:name="com.example.androidhive.app.AppController"
+        android:hardwareAccelerated="false"
         android:icon="@drawable/icon"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:theme="@android:style/Theme.Holo.Light" >
         <activity
             android:name="com.example.androidhive.CustomizedListView"

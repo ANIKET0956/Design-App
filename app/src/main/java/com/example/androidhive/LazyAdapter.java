@@ -18,6 +18,8 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.androidhive.app.AppConfig;
+
 
 public class LazyAdapter extends BaseAdapter {
     
@@ -55,6 +57,8 @@ public class LazyAdapter extends BaseAdapter {
         TextView duration = (TextView)vi.findViewById(R.id.duration); // duration
         ImageView thumb_image=(ImageView)vi.findViewById(R.id.image); // thumb image
         final ImageView dot_image = (ImageView)vi.findViewById(R.id.three_dot);
+        ImageView tag_image = (ImageView)vi.findViewById(R.id.image_hashtag);
+        TextView tag_name = (TextView)vi.findViewById(R.id.tagname);
 
         final HashMap<String, String> song = data.get(position);
 
@@ -64,10 +68,24 @@ public class LazyAdapter extends BaseAdapter {
         artist.setText("Unknown");
         duration.setText("5.00");
 
+        String url_image = AppConfig.DOWNLOAD_SOURCE_URL+song.get(ArticleLoaderTask.KEY_OBJ_URL);
         thumb_image.setImageResource(R.drawable.par1);
-        if(song.get(ArticleLoaderTask.KEY_TYPE).equals("mp3"))thumb_image.setImageResource(R.drawable.par1);
-        else if(song.get(ArticleLoaderTask.KEY_TYPE).equals("mp4"))thumb_image.setImageResource(R.drawable.par2);
-        else if(song.get(ArticleLoaderTask.KEY_TYPE).equals("jpg") || song.get(ArticleLoaderTask.KEY_TYPE).equals("png"))thumb_image.setImageResource(R.drawable.par3);
+        if(song.get(ArticleLoaderTask.KEY_TYPE).equals("mp3"))
+        {   thumb_image.setImageResource(R.drawable.par1);tag_image.setImageResource(R.drawable.par1_1);
+            tag_name.setText("Audio");}
+        else if(song.get(ArticleLoaderTask.KEY_TYPE).equals("mp4")){thumb_image.setImageResource(R.drawable.par2);
+            tag_image.setImageResource(R.drawable.par1_3);tag_name.setText("Video");}
+        else if(song.get(ArticleLoaderTask.KEY_TYPE).equals("jpg") || song.get(ArticleLoaderTask.KEY_TYPE).equals("png")){
+            imageLoader.DisplayImage(url_image,thumb_image);tag_image.setImageResource(R.drawable.par1_2);tag_name.setText("Image");
+        }
+
+
+
+        if(SlidingMenu.navItemIndex!=0)
+        {
+            tag_image.setVisibility(View.GONE);
+            tag_name.setVisibility(View.GONE);
+        }
 
         dot_image.setOnClickListener(new View.OnClickListener() {
             @Override

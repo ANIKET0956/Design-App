@@ -1,9 +1,5 @@
 [
     {
-        "merged": "D:\\study\\8th sem\\design_proj\\Design-App\\app\\build\\intermediates\\res\\merged\\debug\\menu\\activity_main_drawer.xml",
-        "source": "D:\\study\\8th sem\\design_proj\\Design-App\\app\\src\\main\\res\\menu\\activity_main_drawer.xml"
-    },
-    {
         "merged": "C:\\Users\\Aniket Khandelwal\\AndroidStudioProjects\\CustomizedListViewNew\\app\\build\\intermediates\\res\\merged\\debug\\menu\\popup_menu.xml",
         "source": "C:\\Users\\Aniket Khandelwal\\AndroidStudioProjects\\CustomizedListViewNew\\app\\src\\main\\res\\menu\\popup_menu.xml"
     },
@@ -16,27 +12,11 @@
         "source": "C:\\Users\\Aniket Khandelwal\\AndroidStudioProjects\\CustomizedListViewNew\\app\\src\\main\\res\\menu\\favourite.xml"
     },
     {
-        "merged": "D:\\study\\8th sem\\design_proj\\Design-App\\app\\build\\intermediates\\res\\merged\\debug\\menu\\main.xml",
-        "source": "D:\\study\\8th sem\\design_proj\\Design-App\\app\\src\\main\\res\\menu\\main.xml"
-    },
-    {
-        "merged": "D:\\study\\8th sem\\design_proj\\Design-App\\app\\build\\intermediates\\res\\merged\\debug\\menu\\favourite.xml",
-        "source": "D:\\study\\8th sem\\design_proj\\Design-App\\app\\src\\main\\res\\menu\\favourite.xml"
-    },
-    {
-        "merged": "D:\\study\\8th sem\\design_proj\\Design-App\\app\\build\\intermediates\\res\\merged\\debug\\menu\\popup_menu.xml",
-        "source": "D:\\study\\8th sem\\design_proj\\Design-App\\app\\src\\main\\res\\menu\\popup_menu.xml"
-    },
-    {
         "merged": "C:\\Users\\Aniket Khandelwal\\AndroidStudioProjects\\CustomizedListViewNew\\app\\build\\intermediates\\res\\merged\\debug\\menu\\notifications.xml",
         "source": "C:\\Users\\Aniket Khandelwal\\AndroidStudioProjects\\CustomizedListViewNew\\app\\src\\main\\res\\menu\\notifications.xml"
     },
     {
         "merged": "C:\\Users\\Aniket Khandelwal\\AndroidStudioProjects\\CustomizedListViewNew\\app\\build\\intermediates\\res\\merged\\debug\\menu\\activity_main_drawer.xml",
         "source": "C:\\Users\\Aniket Khandelwal\\AndroidStudioProjects\\CustomizedListViewNew\\app\\src\\main\\res\\menu\\activity_main_drawer.xml"
-    },
-    {
-        "merged": "D:\\study\\8th sem\\design_proj\\Design-App\\app\\build\\intermediates\\res\\merged\\debug\\menu\\notifications.xml",
-        "source": "D:\\study\\8th sem\\design_proj\\Design-App\\app\\src\\main\\res\\menu\\notifications.xml"
     }
 ]

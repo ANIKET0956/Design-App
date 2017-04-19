@@ -42,8 +42,6 @@ public class VideoFragment extends Fragment {
         Videolist = (ListView) vi.findViewById(R.id.list);
 
         SlidingMenu.Jparse.get_all_objects(SlidingMenu.user_id,2);
-        Videoadapter = new LazyAdapter(getActivity(), ArticleLoaderTask.VideoSongsList);
-        Videolist.setAdapter(Videoadapter);
 
 
         Videolist.setOnItemClickListener(new AdapterView.OnItemClickListener() {

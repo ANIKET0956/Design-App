@@ -1,6 +1,7 @@
 package com.example.androidhive;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -78,13 +79,15 @@ public class VideoPlayer extends AppCompatActivity {
             @Override
             public void onPrepared(MediaPlayer mediaPlayer) {
                 final int topContainerId1 = getResources().getIdentifier("mediacontroller_progress", "id", "android");
-                mSeekBar = (SeekBar) mMediaController.findViewById(topContainerId1);
-
+                mediaPlayer.start();
             }
-
-
         });
 
+    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
     }
 
 
