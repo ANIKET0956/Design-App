@@ -1,7 +1,4 @@
-#Wed Apr 19 12:24:10 IST 2017
-base.0=C\:\\Users\\Aniket Khandelwal\\AndroidStudioProjects\\CustomizedListViewNew\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\instant-run_95594d29e7f9c47576d0a739aed536740a64ce80
-renamed.1=classes2.dex
+#Wed Apr 26 14:24:05 IST 2017
+base.0=D\:\\study\\8th sem\\design_proj\\Design-App\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\1f\\main
 renamed.0=classes.dex
-file.1=C\:\\Users\\Aniket Khandelwal\\AndroidStudioProjects\\CustomizedListViewNew\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\instant-run-bootstrap_59896b16f98799ea44443e3772160164acc3534e\\classes.dex
-base.1=C\:\\Users\\Aniket Khandelwal\\AndroidStudioProjects\\CustomizedListViewNew\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\instant-run-bootstrap_59896b16f98799ea44443e3772160164acc3534e
-file.0=C\:\\Users\\Aniket Khandelwal\\AndroidStudioProjects\\CustomizedListViewNew\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\instant-run_95594d29e7f9c47576d0a739aed536740a64ce80\\classes.dex
+file.0=D\:\\study\\8th sem\\design_proj\\Design-App\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\1f\\main\\classes.dex

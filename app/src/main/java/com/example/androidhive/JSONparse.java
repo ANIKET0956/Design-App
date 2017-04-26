@@ -223,6 +223,60 @@ public class JSONparse {
         AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
     }
 
+    public void removeFavorite(final String user_id, final String object_id) {
+        // Tag used to cancel the request
+        String tag_string_req = "req_removefav";
+
+        StringRequest strReq;
+        strReq = new StringRequest(Request.Method.POST,
+                AppConfig.URL_REMFAV, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                Log.d("JSONParse: ", "Remove Favourite: " + response.toString());
+
+                try {
+                    JSONObject jObj = new JSONObject(response);
+                    boolean error = jObj.getBoolean("error");
+                    if (!error) {
+                    } else {
+
+                        // Error occurred in registration. Get the error
+                        // message
+                        String errorMsg = jObj.getString("error_msg");
+                        Toast.makeText(mActivity,
+                                errorMsg, Toast.LENGTH_LONG).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("Error Tag", "Remove Favorite Error: " + error.getMessage());
+                Toast.makeText(mActivity,
+                        error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }) {
+
+            @Override
+            protected Map<String, String> getParams() {
+                // Posting params to register url
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("user_id", user_id);
+                params.put("object_id", object_id);
+                return params;
+            }
+
+        };
+
+        // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+    }
+
     public static class ListUtils {
         public static void setDynamicHeight(ListView mListView) {
             ListAdapter mListAdapter = mListView.getAdapter();

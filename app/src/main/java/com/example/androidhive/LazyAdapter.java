@@ -26,8 +26,8 @@ public class LazyAdapter extends BaseAdapter {
     private Activity activity;
     private ArrayList<HashMap<String, String>> data;
     private static LayoutInflater inflater=null;
-    public ImageLoader imageLoader; 
-    
+    public ImageLoader imageLoader;
+    private static View vi;
     public LazyAdapter(Activity a, ArrayList<HashMap<String, String>> d) {
         activity = a;
         data=d;
@@ -48,7 +48,7 @@ public class LazyAdapter extends BaseAdapter {
     }
     
     public View getView(int position, View convertView, ViewGroup parent) {
-        View vi=convertView;
+        vi=convertView;
         if(convertView==null)
             vi = inflater.inflate(R.layout.list_row, null);
 
@@ -62,7 +62,7 @@ public class LazyAdapter extends BaseAdapter {
 
         final HashMap<String, String> song = data.get(position);
 
-        
+
         // Setting all values in listview
         title.setText(song.get(CustomizedListView.KEY_TITLE));
         artist.setText("Unknown");
@@ -98,11 +98,11 @@ public class LazyAdapter extends BaseAdapter {
                 //registering popup with OnMenuItemClickListener
                 popup.setOnMenuItemClickListener(new android.widget.PopupMenu.OnMenuItemClickListener() {
                     public boolean onMenuItemClick(MenuItem item) {
-                        Toast.makeText(activity,"Marked Favourite",Toast.LENGTH_SHORT).show();
-                        Log.d("Marking favourite: ", song.toString());
-                        Log.d("favourite objid: ", song.get(ArticleLoaderTask.KEY_ID));
                         switch (item.getItemId()){
                             case R.id.one:
+                                Toast.makeText(activity,"Marked Favourite",Toast.LENGTH_SHORT).show();
+                                Log.d("Marking favourite: ", song.toString());
+                                Log.d("favourite objid: ", song.get(ArticleLoaderTask.KEY_ID));
                                 if(song.get(ArticleLoaderTask.KEY_TYPE).equals("mp3")) {
                                     Log.d("tag with purpose",song.get(ArticleLoaderTask.KEY_ID));
                                     SlidingMenu.Jparse.addFavorite(SlidingMenu.user_id, song.get(ArticleLoaderTask.KEY_ID));
@@ -118,6 +118,26 @@ public class LazyAdapter extends BaseAdapter {
                                     System.out.println(ArticleLoaderTask.ImageFavList.toString());
                                 }
                                 break;
+                            case R.id.two:
+                                Toast.makeText(activity,"Removed Favourite",Toast.LENGTH_SHORT).show();
+                                Log.d("Removing favourite: ", song.toString());
+                                Log.d("favourite objid: ", song.get(ArticleLoaderTask.KEY_ID));
+                                if(song.get(ArticleLoaderTask.KEY_TYPE).equals("mp3")) {
+                                    SlidingMenu.Jparse.removeFavorite(SlidingMenu.user_id, song.get(ArticleLoaderTask.KEY_ID));
+                                    ArticleLoaderTask.AudioFavSongsList.remove(song);
+                                }
+                                else if(song.get(ArticleLoaderTask.KEY_TYPE).equals("mp4")) {
+                                    SlidingMenu.Jparse.removeFavorite(SlidingMenu.user_id,song.get(ArticleLoaderTask.KEY_ID));
+                                    ArticleLoaderTask.VideoFavSongsList.remove(song);
+                                }
+                                else if(song.get(ArticleLoaderTask.KEY_TYPE).equals("jpg") || song.get(ArticleLoaderTask.KEY_TYPE).equals("png")) {
+                                    SlidingMenu.Jparse.removeFavorite(SlidingMenu.user_id,song.get(ArticleLoaderTask.KEY_ID));
+                                    ArticleLoaderTask.ImageFavList.remove(song);
+                                }
+                                SlidingMenu.ImageFavadapter.notifyDataSetChanged();
+                                SlidingMenu.AudioFavadapter.notifyDataSetChanged();
+                                SlidingMenu.VideoFavadapter.notifyDataSetChanged();
+                                break;
                             default:
                                 break;
                         }
@@ -127,7 +147,6 @@ public class LazyAdapter extends BaseAdapter {
                 popup.show();//showing popup menu
             }
         });
-
         return vi;
     }
 }

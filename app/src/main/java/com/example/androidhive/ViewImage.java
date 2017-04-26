@@ -74,6 +74,21 @@ public class ViewImage extends Activity {
 
     }
 
+    @Override
+        public void onDestroy(){
+            super.onDestroy();
+            iv = null;
+            bmp = null;
+            bDownload = null;
+            receiver = null;
+            try {
+               unregisterReceiver(receiver);
+            }
+            catch (Exception e){
+                   Log.e("onDestroy viewImage: ", e.toString());
+            }
+        }
+    
     public static void LoadImage(final String url) {
         new AsyncTask<Void, Void, Void>() {
             @Override
@@ -137,6 +152,6 @@ public class ViewImage extends Activity {
 
         registerReceiver(receiver, new IntentFilter(
                 DownloadManager.ACTION_DOWNLOAD_COMPLETE));
-        unregisterReceiver(receiver);
+//        unregisterReceiver(receiver);
     }
 }

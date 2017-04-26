@@ -6,13 +6,14 @@ package com.example.androidhive.app;
 
 public class AppConfig {
     // Server user login url
-    public static String SERVER_URL = "http://10.194.23.8/cms/";
+    public static String SERVER_URL = "http://10.251.217.131/cms/";
     public static String URL_LOGIN = SERVER_URL + "login.php";
 
     // Server user register url
     public static String URL_REGISTER = SERVER_URL + "register.php";
     public static String URL_GETFAV = SERVER_URL + "getFav.php";
     public static String URL_ADDFAV = SERVER_URL + "addFav.php";
+    public static String URL_REMFAV = SERVER_URL + "removeFav.php";
     public static String URL_GETPLAY = SERVER_URL + "getPlaylists.php";
     public static String URL_ADDPLAY = SERVER_URL + "addtoPlaylist.php";
 
@@ -20,7 +21,7 @@ public class AppConfig {
     public static String ADD_OBJECT_URL = SERVER_URL + "addObject.php";
     public static String ADD_TAG_URL = SERVER_URL + "addTag.php";
     public static String SEARCH_URL = SERVER_URL + "search.php";
-    public static String DOWNLOAD_SOURCE_URL = SERVER_URL + "uploader/uploads/";
+    public static String DOWNLOAD_SOURCE_URL = SERVER_URL ;
 
     public  static String URL_GETOBJECT = SERVER_URL + "getObjects.php";
 }
